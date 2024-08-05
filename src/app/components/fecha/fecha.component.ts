@@ -28,6 +28,7 @@ export class FechaComponent {
         case '10':
         case '19':
         case '28':
+        case '37':
           console.log('1');
           break;
         case '20':

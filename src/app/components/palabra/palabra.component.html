@@ -1,1 +1,14 @@
-<p>palabra works!</p>
+<div class="container">
+  <br>
+  <form>
+    <div class="mb-3">
+      <label for="txtPalabra" class="form-label">Ingrese palabra</label>
+      <input type="text" name="inpPalabra" class="form-control" id="txtPalabra" aria-describedby="txtHelp" [(ngModel)]="txtPalabra">
+      <div id="txtHelp" class="form-text">Se recomienda que sólo se ingrese texto.</div>
+    </div>
+    <div class="d-flex gap-2 justify-content-center">
+      <a [routerLink]="['../home']"><button type="button" class="btn btn-warning d-inline-flex">Volver a Inicio</button></a>
+      <button type="button" class="btn btn-primary d-inline-flex" (click)="obtenerPalabra()">Buscar</button>
+    </div>
+  </form>
+</div>

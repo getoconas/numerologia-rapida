@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Compatibilidad } from '../../models/compatibilidad';
-import { CompatibilidadService } from '../../services/compatibilidad.service';
+import { Compatibility } from '../../models/compatibility';
+import { CompatibilityService } from '../../services/http/compatibility.service';
 
 @Component({
   selector: 'app-compatibilidad',
@@ -12,7 +12,7 @@ import { CompatibilidadService } from '../../services/compatibilidad.service';
   styleUrl: './compatibilidad.component.css'
 })
 export class CompatibilidadComponent {
-  listadoCompatibilidades: Array<Compatibilidad>;
+  listadoCompatibilidades: Array<Compatibility>;
   txtFecha1: string = "";
   txtFecha2: string = "";
   numero1: number = 0;
@@ -20,10 +20,10 @@ export class CompatibilidadComponent {
   mostrarFormulario: boolean;
   mostrarResultado: boolean;
   
-  constructor(private compatibilidadService: CompatibilidadService) {
+  constructor(private compatibilidadService: CompatibilityService) {
     this.mostrarFormulario = true;
     this.mostrarResultado = false;
-    this.listadoCompatibilidades = this.compatibilidadService.obtenerListadoCompatibilidad();
+    this.listadoCompatibilidades = this.compatibilidadService.getCompatibility();
   }
 
   obtenerCompatibilidad() {
@@ -33,7 +33,7 @@ export class CompatibilidadComponent {
       this.numero1 = this.obtenerNumero(this.txtFecha1);
       this.numero2 = this.obtenerNumero(this.txtFecha2);
       this.listadoCompatibilidades.forEach(element => {
-        if (this.obtenerValidacion(element)) {
+        if (this.getValidation(element)) {
           console.log(element);
         }
       });
@@ -41,74 +41,75 @@ export class CompatibilidadComponent {
     }
   }
 
-  private obtenerValidacion(element: any) {
+  // Valida si los numeros son iguales
+  private getValidation(element: any) : boolean {
     return (
-      (element.numero1 == this.numero1 && element.numero2 == this.numero2) ||
-      (element.numero1 == this.numero2 && element.numero2 == this.numero1)
+      (element.number_first == this.numero1 && element.number_second == this.numero2) ||
+      (element.number_first == this.numero2 && element.number_second == this.numero1)
     );
   }
 
   // Retorna una sola cifra 
   private obtenerNumero(element: string) {
-    let resultado = this.obtenerSuma(element);
-    if (resultado == 11 || resultado == 22 || resultado == 33) {
-      switch (resultado.toString()) {
+    let result = this.getSum(element);
+    if (result == 11 || result == 22 || result == 33) {
+      switch (result.toString()) {
         case '11':
-          resultado = 2;
+          result = 2;
           break;
         case '22':
-          resultado = 4;
+          result = 4;
           break;
         case '33':
-          resultado = 6;
+          result = 6;
           break;
         default:
-          resultado = 0
+          result = 0
           break;
       }
-      console.log('Numero maestro: ' + resultado);
-    } else if (resultado < 10) {
-      console.log(resultado);
+      console.log('Numero maestro: ' + result);
+    } else if (result < 10) {
+      console.log(result);
     } else {
-      console.log(" --- " + resultado.toString() + " ---");
-      switch (resultado.toString()) {
+      console.log(" --- " + result.toString() + " ---");
+      switch (result.toString()) {
         case '10':
         case '19':
         case '28':
         case '37':
         case '46':
-          resultado = 1;
+          result = 1;
           console.log('1');
           break;
         case '20':
         case '29':
         case '38':
         case '47':
-          resultado = 2;
+          result = 2;
           console.log('2');
           break;
         case '30':
         case '39':
-          resultado = 3;
+          result = 3;
           console.log('3');
           break;
         default:
-          resultado = this.obtenerSuma(resultado.toString());
-          console.log(resultado);
+          result = this.getSum(result.toString());
+          console.log(result);
           break;        
       }
     }
-    return resultado;
+    return result;
   }
 
   // Retorna la suma de los numeros ingresados
-  private obtenerSuma(element: string) {
-    let suma = 0;
+  private getSum(element: string) {
+    let result = 0;
     for (let i = 0; i < element.length; i++) {
       if (!(element[i] == "-")) {
-        suma += parseInt(element[i]);
+        result += parseInt(element[i]);
       }
     }
-    return suma;
+    return result;
   }
 }

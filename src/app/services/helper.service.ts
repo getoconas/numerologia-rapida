@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HelperService {
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   // Retorna un digito
   public getDigit(element: string) : number {
@@ -37,5 +38,10 @@ export class HelperService {
       number = Math.floor(number / 10);
     }
     return result;
+  }
+
+  // Muestra un mensaje de error
+  public showError(message: string) : void {
+    this.toastr.error('', message);
   }
 }

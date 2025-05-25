@@ -28,7 +28,7 @@ export class CompatibilityComponent {
   // Obtener compatibilidad de parejas
   public getCompatibility() {
     if (this.textDate1 == '' || this.textDate2 == '') {
-      console.log('Error');
+      this.helper.showError('Debe ingresar una fecha');
     } else {
       this.first_number = this.helper.getDigit(this.textDate1);
       this.second_number = this.helper.getDigit(this.textDate2);

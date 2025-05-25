@@ -2,15 +2,15 @@
   <br>
   <form>
     <label class="d-flex gap-2 justify-content-center" for="dtFecha1" style="margin-bottom: 5px;">
-      Seleccione fecha 1 <input type="date" name="dtFecha1" [(ngModel)]="txtFecha1">
+      Seleccione fecha 1 <input type="date" name="dtFecha1" [(ngModel)]="textDate1">
     </label>
     <label class="d-flex gap-2 justify-content-center" for="dtFecha2">
-      Seleccione fecha 2 <input type="date" name="dtFecha2" [(ngModel)]="txtFecha2">
+      Seleccione fecha 2 <input type="date" name="dtFecha2" [(ngModel)]="textDate2">
     </label>
     <br>
     <div class="d-flex gap-2 justify-content-center">
       <a [routerLink]="['../home']"><button type="button" class="btn btn-warning d-inline-flex">Volver a Inicio</button></a>
-      <button type="button" class="btn btn-primary d-inline-flex" (click)="obtenerCompatibilidad()">Buscar</button>
+      <button type="button" class="btn btn-primary d-inline-flex" (click)="getCompatibility()">Buscar</button>
     </div>
   </form>
 </div>

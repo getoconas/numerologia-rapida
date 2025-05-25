@@ -18,15 +18,14 @@ export class CompatibilityComponent {
   textDate2: string = "";
   first_number: number = 0;
   second_number: number = 0;
-  mostrarFormulario: boolean;
-  mostrarResultado: boolean;
+  viewResult: boolean;
   
   constructor(private compatibilityService: CompatibilityService, private helper: HelperService) {
-    this.mostrarFormulario = true;
-    this.mostrarResultado = false;
+    this.viewResult = false;
     this.compatibilityArray = this.compatibilityService.getCompatibility();
   }
 
+  // Obtener compatibilidad de parejas
   public getCompatibility() {
     if (this.textDate1 == '' || this.textDate2 == '') {
       console.log('Error');

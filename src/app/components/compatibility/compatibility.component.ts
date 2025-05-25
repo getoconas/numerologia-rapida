@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { Compatibility } from '../../models/compatibility';
 import { CompatibilityService } from '../../services/http/compatibility.service';
 import { HelperService } from '../../services/helper.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-compatibilidad',
   standalone: true,
-  imports: [ RouterModule, FormsModule ],
+  imports: [ RouterModule, FormsModule, CommonModule ],
   templateUrl: './compatibility.component.html',
   styleUrl: './compatibility.component.css'
 })
@@ -19,6 +20,7 @@ export class CompatibilityComponent {
   first_number: number = 0;
   second_number: number = 0;
   viewResult: boolean;
+  description: string = '';
   
   constructor(private compatibilityService: CompatibilityService, private helper: HelperService) {
     this.viewResult = false;
@@ -34,6 +36,8 @@ export class CompatibilityComponent {
       this.second_number = this.helper.getDigit(this.textDate2);
       this.compatibilityArray.forEach(element => {
         if (this.getValidation(element)) {
+          this.viewResult = true;
+          this.description = element.description;
           console.log(element);
         }
       });

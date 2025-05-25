@@ -13,4 +13,20 @@
       <button type="button" class="btn btn-primary d-inline-flex" (click)="getCompatibility()">Buscar</button>
     </div>
   </form>
+  <br>
+  @if(viewResult) {
+    <div class="flex-column justify-content-center mb-2">
+      <div class="card text-center mb-2">
+        <div class="card-body">
+          <h5 class="card-title">Compatibilidad</h5>
+          <p class="card-text">Compatibilidad entre {{ textDate1 | date:'dd-MM-yyyy' }} = {{ first_number }} y {{ textDate2 | date:'dd-MM-yyyy' }} = {{ second_number }}</p>
+        </div>
+      </div>
+      <div class="card text-center">
+        <div class="card-body">
+          <p class="card-text">{{ description }}</p>
+        </div>
+      </div>
+    </div>
+  }
 </div>

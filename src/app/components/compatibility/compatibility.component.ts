@@ -17,12 +17,16 @@ export class CompatibilityComponent {
   compatibilityArray: Array<Compatibility>;
   textDate1: string = "";
   textDate2: string = "";
+  inputDate1: string = "";
+  inputDate2: string = "";
   first_number: number = 0;
   second_number: number = 0;
   viewResult: boolean;
   description: string = '';
   
   constructor(private compatibilityService: CompatibilityService, private helper: HelperService) {
+    this.inputDate1 = "";
+    this.inputDate2 = "";
     this.viewResult = false;
     this.compatibilityArray = this.compatibilityService.getCompatibility();
   }
@@ -32,13 +36,14 @@ export class CompatibilityComponent {
     if (this.textDate1 == '' || this.textDate2 == '') {
       this.helper.showError('Debe ingresar una fecha');
     } else {
+      this.inputDate1 = this.textDate1;
+      this.inputDate2 = this.textDate2;
       this.first_number = this.helper.getDigit(this.textDate1);
       this.second_number = this.helper.getDigit(this.textDate2);
       this.compatibilityArray.forEach(element => {
         if (this.getValidation(element)) {
           this.viewResult = true;
           this.description = element.description;
-          console.log(element);
         }
       });
     }
